@@ -2,6 +2,8 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 
+import propertyRouter from "./routes/property.js";
+
 const app = express();
 dotenv.config();
 
@@ -15,7 +17,7 @@ await mongoose
 app.use(express.json());
 
 // ROUTES
-app.get("/", (req, res) => res.send("Hi there"));
+app.use("/", propertyRouter);
 
 // RUNNING THE BACKEND
 const port = process.env.PORT || 8800;
