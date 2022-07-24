@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 const PropertSchema = new mongoose.Schema(
   {
     name: {
