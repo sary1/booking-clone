@@ -8,7 +8,7 @@ import {
 } from "../controllers/property.js";
 
 router.get("/", getAllProperties);
-router.get("/countByCity", getCityProperties);
+router.get("/getByCity", getCityProperties);
 router.post("/", createProperty);
 
 export default router;

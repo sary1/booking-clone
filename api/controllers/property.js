@@ -20,15 +20,20 @@ export const createProperty = async (req, res) => {
 
 export const getCityProperties = async (req, res) => {
   try {
-    const city = req.query.city;
-    const propertiesByCity = await Property.find({ city });
+    const cities = req.query.cities.split(",");
 
-    if (!propertiesByCity)
-      return res
-        .status(204)
-        .json({ response: "Failed", result: "No properties found" });
+    const propertiesNum = await Promise.all(
+      cities.map((city) => {
+        return Property.countDocuments({ city });
+      })
+    );
 
-    return res.send(propertiesByCity);
+    const propertiesByCity = {};
+    cities.forEach((city, index) => {
+      propertiesByCity[index] = [city, propertiesNum[index]];
+    });
+
+    return res.status(200).json({ propertiesByCity });
   } catch (error) {
     res.status(400).json(error);
   }
