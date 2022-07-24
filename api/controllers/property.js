@@ -17,3 +17,19 @@ export const createProperty = async (req, res) => {
     res.status(400).json(error);
   }
 };
+
+export const getCityProperties = async (req, res) => {
+  try {
+    const city = req.query.city;
+    const propertiesByCity = await Property.find({ city });
+
+    if (!propertiesByCity)
+      return res
+        .status(204)
+        .json({ response: "Failed", result: "No properties found" });
+
+    return res.send(propertiesByCity);
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};

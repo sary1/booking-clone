@@ -1,6 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
+import cors from "cors";
 
 import propertyRouter from "./routes/property.js";
 
@@ -15,9 +16,10 @@ await mongoose
 
 // MIDDLEWARES
 app.use(express.json());
+app.use(cors());
 
 // ROUTES
-app.use("/", propertyRouter);
+app.use("/api/properties", propertyRouter);
 
 // RUNNING THE BACKEND
 const port = process.env.PORT || 8800;

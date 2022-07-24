@@ -1,6 +1,22 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 import "./featured.css";
 
 const Featured = () => {
+  const [cityProperties, setCityProperties] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await axios.get("/properties/countByCity?city=munich");
+        setCityProperties(result.data);
+      } catch (error) {
+        console.log({ error });
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <div className="featured">
       <div className="featuredItem">
@@ -10,11 +26,11 @@ const Featured = () => {
           className="featuredImg"
         />
         <div className="featuredTitles">
-          <h1>Dublin</h1>
-          <h2>123 properties</h2>
+          <h1>Munich</h1>
+          <h2>{cityProperties.length} properties</h2>
         </div>
       </div>
-      
+
       <div className="featuredItem">
         <img
           src="https://cf.bstatic.com/xdata/images/city/max500/690334.webp?k=b99df435f06a15a1568ddd5f55d239507c0156985577681ab91274f917af6dbb&o="
