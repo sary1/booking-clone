@@ -1,6 +1,14 @@
 import "./propertyList.css";
 
 const PropertyList = () => {
+  const properties = {
+    hotels: 5,
+    apartments: 3,
+    resorts: 2,
+    villas: 8,
+    cabins: 7,
+  };
+
   return (
     <div className="pList">
       <div className="pListItem">
@@ -11,7 +19,7 @@ const PropertyList = () => {
         />
         <div className="pListTitles">
           <h1>Hotels</h1>
-          <h2>233 hotels</h2>
+          <h2>{properties.hotels} hotels</h2>
         </div>
       </div>
       <div className="pListItem">
@@ -22,7 +30,7 @@ const PropertyList = () => {
         />
         <div className="pListTitles">
           <h1>Apartments</h1>
-          <h2>2331 hotels</h2>
+          <h2>{properties.apartments} apartments</h2>
         </div>
       </div>
       <div className="pListItem">
@@ -33,7 +41,7 @@ const PropertyList = () => {
         />
         <div className="pListTitles">
           <h1>Resorts</h1>
-          <h2>2331 hotels</h2>
+          <h2>{properties.resorts} resorts</h2>
         </div>
       </div>
       <div className="pListItem">
@@ -44,7 +52,7 @@ const PropertyList = () => {
         />
         <div className="pListTitles">
           <h1>Villas</h1>
-          <h2>2331 hotels</h2>
+          <h2>{properties.villas} villas</h2>
         </div>
       </div>
       <div className="pListItem">
@@ -55,7 +63,7 @@ const PropertyList = () => {
         />
         <div className="pListTitles">
           <h1>Cabins</h1>
-          <h2>2331 hotels</h2>
+          <h2>{properties.cabins} cabins</h2>
         </div>
       </div>
     </div>
