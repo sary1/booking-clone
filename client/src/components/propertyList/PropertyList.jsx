@@ -1,13 +1,27 @@
+import { useEffect, useState } from "react";
+import axios from "axios";
 import "./propertyList.css";
 
 const PropertyList = () => {
-  const properties = {
-    hotels: 5,
-    apartments: 3,
-    resorts: 2,
-    villas: 8,
-    cabins: 7,
-  };
+  const [properties, setProperties] = useState({
+    hotels: 0,
+    apartments: 0,
+    resorts: 0,
+    villas: 0,
+    hostels: 0,
+  });
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await axios.get("/properties/getByType");
+        setProperties(result.data);
+      } catch (error) {
+        console.log({ error });
+      }
+    };
+    fetchData();
+  }, []);
 
   return (
     <div className="pList">
@@ -62,8 +76,8 @@ const PropertyList = () => {
           className="pListImg"
         />
         <div className="pListTitles">
-          <h1>Cabins</h1>
-          <h2>{properties.cabins} cabins</h2>
+          <h1>Hostels</h1>
+          <h2>{properties.hostels} hostels</h2>
         </div>
       </div>
     </div>

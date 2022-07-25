@@ -40,6 +40,18 @@ export const getCityProperties = async (req, res) => {
 };
 
 export const getTypeProperties = async (req, res) => {
-  const type = req.query.type;
-  res.send(type);
+  const hotels = await Property.countDocuments({ type: "Hotel" });
+  const apartments = await Property.countDocuments({ type: "Apartment" });
+  const resorts = await Property.countDocuments({ type: "Resort" });
+  const villas = await Property.countDocuments({ type: "Villa" });
+  const hostels = await Property.countDocuments({ type: "Hostel" });
+
+  const properties = {
+    hotels,
+    apartments,
+    resorts,
+    villas,
+    hostels,
+  };
+  res.status(200).json(properties);
 };
