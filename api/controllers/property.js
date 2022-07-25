@@ -38,3 +38,8 @@ export const getCityProperties = async (req, res) => {
     res.status(400).json(error);
   }
 };
+
+export const getTypeProperties = async (req, res) => {
+  const type = req.query.type;
+  res.send(type);
+};
