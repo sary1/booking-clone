@@ -57,5 +57,6 @@ export const getTypeProperties = async (req, res) => {
 };
 
 export const getScoreProperties = async (req, res) => {
-  res.send("score");
+  const properties = await Property.find().sort({ score: -1 }).limit(4);
+  res.status(200).json(properties);
 };
