@@ -55,3 +55,7 @@ export const getTypeProperties = async (req, res) => {
   };
   res.status(200).json(properties);
 };
+
+export const getScoreProperties = async (req, res) => {
+  res.send("score");
+};

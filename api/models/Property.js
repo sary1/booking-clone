@@ -43,7 +43,7 @@ const PropertSchema = new mongoose.Schema(
     },
     type: {
       type: String,
-      enum: ["Hotel", "Hostel", "Resort", "Villa", "Cabin"],
+      enum: ["Hotel", "Hostel", "Resort", "Villa", "Cabin", "Apartment"],
       required: true,
     },
   },
