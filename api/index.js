@@ -21,6 +21,14 @@ app.use(cors());
 // ROUTES
 app.use("/api/properties", propertyRouter);
 
+// DIRECT ALL UNHANDLED ROUTES
+app.all("*", (req, res, next) => {
+  res.status(404).json({
+    status: "fail",
+    message: `Can't find ${req.originalUrl} on this server`,
+  });
+});
+
 // RUNNING THE BACKEND
 const port = process.env.PORT || 8800;
 app.listen(port, () => {
