@@ -4,6 +4,7 @@ import mongoose from "mongoose";
 import cors from "cors";
 
 import propertyRouter from "./routes/property.js";
+import authRouter from "./routes/auth.js";
 
 const app = express();
 dotenv.config();
@@ -20,6 +21,7 @@ app.use(cors());
 
 // ROUTES
 app.use("/api/properties", propertyRouter);
+app.use("/api/auth", authRouter);
 
 // DIRECT ALL UNHANDLED ROUTES
 app.all("*", (req, res, next) => {
