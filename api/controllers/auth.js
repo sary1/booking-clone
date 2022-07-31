@@ -1,13 +1,19 @@
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
-const displayErrors = (error) => {
-  const validationErrors = [];
-  if (error.code === 11000) return "Email is already registered";
-  Object.values(error.errors).forEach(({ properties }) => {
-    validationErrors.push(properties.message);
-  });
-  return validationErrors;
+// const displayErrors = (error) => {
+//   const validationErrors = [];
+//   if (error.code === 11000) return "Email is already registered";
+//   Object.values(error.errors).forEach(({ properties }) => {
+//     validationErrors.push(properties.message);
+//   });
+//   return validationErrors;
+// };
+
+const maxAge = 3 * 24 * 60 * 60;
+const createToken = (id) => {
+  return jwt.sign({ id }, "secret jwt token", { expiresIn: maxAge });
 };
 
 export const login = async (req, res) => {
@@ -35,17 +41,23 @@ export const login = async (req, res) => {
 export const register = async (req, res) => {
   try {
     const user = new User({ ...req.body });
+    if (user.password.length < 6)
+      return res
+        .status(400)
+        .json({ error: "Password can not be less than 6 characters" });
+
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
     await user.save();
-    res.cookie("isNewUser", true, {
-      maxAge: 1000 * 60 * 60 * 24,
-      // httpOnly: true,
+    const token = createToken(user._id);
+    res.cookie("jwt", token, {
+      maxAge: 1000 * maxAge,
+      httpOnly: true,
     });
 
     res.status(201).json({ user });
   } catch (error) {
-    const errors = displayErrors(error);
-    res.status(400).json({ errors });
+    // const errors = displayErrors(error);
+    res.status(400).json({ error });
   }
 };
