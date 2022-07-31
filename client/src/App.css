@@ -101,6 +101,7 @@ input {
   background: #222;
   color: #fff;
   border-radius: 3px;
+  margin-top: 20px;
 }
 
 #sub_btn:hover {

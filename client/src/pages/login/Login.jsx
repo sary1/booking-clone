@@ -29,7 +29,7 @@ const Login = () => {
         </form>
         <footer>
           <p>
-            First time? <Link to="/register">Create an account</Link>.
+            <Link to="/register">Create an account</Link>.
           </p>
           <p>
             <Link to="/">Back to Homepage</Link>.
