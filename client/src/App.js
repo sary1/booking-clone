@@ -5,6 +5,8 @@ import List from "./pages/list/List";
 import Login from "./pages/login/Login.jsx";
 import Register from "./pages/Register/Register";
 
+import "./App.css";
+
 function App() {
   return (
     <BrowserRouter>
@@ -12,8 +14,8 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/hotels" element={<List />} />
         <Route path="/hotels/:id" element={<Hotel />} />
-        <Route path="/api/auth/login" element={<Login />} />
-        <Route path="/api/auth/register" element={<Register />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
       </Routes>
     </BrowserRouter>
   );

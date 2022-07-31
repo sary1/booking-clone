@@ -47,6 +47,11 @@
   cursor: pointer;
 }
 
+.headerBtn a {
+  color: white;
+  text-decoration: none;
+}
+
 .headerSearch {
   height: 30px;
   background-color: white;

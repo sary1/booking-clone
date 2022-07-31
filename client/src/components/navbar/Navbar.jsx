@@ -1,4 +1,5 @@
-import "./navbar.css"
+import { Link } from "react-router-dom";
+import "./navbar.css";
 
 const Navbar = () => {
   return (
@@ -6,12 +7,16 @@ const Navbar = () => {
       <div className="navContainer">
         <span className="logo">lamabooking</span>
         <div className="navItems">
-          <button className="navButton">Register</button>
-          <button className="navButton">Login</button>
+          <button className="navButton">
+            <Link to="/register">Register</Link>
+          </button>
+          <button className="navButton">
+            <Link to="/register">Login</Link>
+          </button>
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Navbar
+export default Navbar;
