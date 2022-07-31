@@ -24,6 +24,8 @@ export const login = async (req, res) => {
     if (!validatePassword)
       return res.status(400).json({ error: "Invalid Password" });
 
+    console.log("Cookies: ", req.cookies);
+
     res.status(200).json({ user });
   } catch (error) {
     res.status(400).json({ error });
@@ -36,6 +38,10 @@ export const register = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
     await user.save();
+    res.cookie("isNewUser", true, {
+      maxAge: 1000 * 60 * 60 * 24,
+      // httpOnly: true,
+    });
 
     res.status(201).json({ user });
   } catch (error) {

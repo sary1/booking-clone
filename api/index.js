@@ -2,11 +2,13 @@ import express from "express";
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 import cors from "cors";
+import cookieParser from "cookie-parser";
 
 import propertyRouter from "./routes/property.js";
 import authRouter from "./routes/auth.js";
 
 const app = express();
+app.use(cookieParser());
 dotenv.config();
 
 // DATABASE
