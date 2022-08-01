@@ -1,6 +1,7 @@
 import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import _ from "lodash";
 
 const displayErrors = (error) => {
   const validationErrors = [];
@@ -59,7 +60,9 @@ export const register = async (req, res) => {
       httpOnly: true,
     });
 
-    res.status(201).json({ user });
+    res
+      .status(201)
+      .json({ user: _.omit(user.toObject(), ["_id", "password", "__v"]) });
   } catch (error) {
     const errors = displayErrors(error);
     res.status(400).json({ error: errors });
