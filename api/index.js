@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 
 import propertyRouter from "./routes/property.js";
 import authRouter from "./routes/auth.js";
+import userRouter from "./routes/user.js";
 
 const app = express();
 app.use(cookieParser());
@@ -24,6 +25,7 @@ app.use(cors());
 // ROUTES
 app.use("/api/properties", propertyRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/users", userRouter);
 
 // DIRECT ALL UNHANDLED ROUTES
 app.all("*", (req, res, next) => {
