@@ -2,14 +2,13 @@ import User from "../models/User.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
-// const displayErrors = (error) => {
-//   const validationErrors = [];
-//   if (error.code === 11000) return "Email is already registered";
-//   Object.values(error.errors).forEach(({ properties }) => {
-//     validationErrors.push(properties.message);
-//   });
-//   return validationErrors;
-// };
+const displayErrors = (error) => {
+  const validationErrors = [];
+  Object.values(error.errors).forEach(({ properties }) => {
+    validationErrors.push(properties.message);
+  });
+  return validationErrors;
+};
 
 const maxAge = 3 * 24 * 60 * 60;
 const createToken = (id) => {
@@ -40,6 +39,10 @@ export const login = async (req, res) => {
 
 export const register = async (req, res) => {
   try {
+    const existingUser = await User.findOne({ email: req.body.email });
+    if (existingUser)
+      return res.status(400).json({ error: "User already exists" });
+
     const user = new User({ ...req.body });
     if (user.password.length < 6)
       return res
@@ -49,6 +52,7 @@ export const register = async (req, res) => {
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
     await user.save();
+
     const token = createToken(user._id);
     res.cookie("jwt", token, {
       maxAge: 1000 * maxAge,
@@ -57,7 +61,7 @@ export const register = async (req, res) => {
 
     res.status(201).json({ user });
   } catch (error) {
-    // const errors = displayErrors(error);
-    res.status(400).json({ error });
+    const errors = displayErrors(error);
+    res.status(400).json({ error: errors });
   }
 };

@@ -17,8 +17,6 @@ const Register = () => {
       await axios.post("/auth/register", user);
       window.location.href = "/";
     } catch (error) {
-      if (error.response.data.error.code === 11000)
-        console.log({ error: "Email is already registered" });
       console.log({ error: error.response.data.error });
     }
   };
