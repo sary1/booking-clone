@@ -28,10 +28,13 @@ export const login = async (req, res) => {
 
     const token = user.generateAuthToken();
 
-    res.status(200).json({
-      user: _.omit(user.toObject(), ["_id", "password", "__v"]),
-      token,
-    });
+    res
+      .status(200)
+      .header("x-auth-token", token)
+      .json({
+        user: _.omit(user.toObject(), ["_id", "password", "__v"]),
+        token,
+      });
   } catch (error) {
     res.status(400).json({ error });
   }
