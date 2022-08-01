@@ -26,10 +26,7 @@ export const login = async (req, res) => {
     if (!validatePassword)
       return res.status(400).json({ error: "Invalid Password" });
 
-    const token = jwt.sign(
-      { _id: user._id, isAdmin: user.isAdmin },
-      process.env.JWT_KEY
-    );
+    const token = user.generateAuthToken();
 
     res.status(200).json({
       user: _.omit(user.toObject(), ["_id", "password", "__v"]),
@@ -56,10 +53,7 @@ export const register = async (req, res) => {
     user.password = await bcrypt.hash(user.password, salt);
     await user.save();
 
-    const token = jwt.sign(
-      { _id: user._id, isAdmin: user.isAdmin },
-      process.env.JWT_KEY
-    );
+    const token = user.generateAuthToken();
 
     res
       .status(201)
