@@ -6,7 +6,6 @@ import "./navbar.css";
 const Navbar = () => {
   const [firstname] = useState(useSelector((store) => store.user.firstname));
 
-  console.log(firstname);
   return (
     <div className="navbar">
       <div className="navContainer">
