@@ -1,5 +1,14 @@
 import Property from "../models/Property.js";
 
+export const addNewEntry = async (req, res) => {
+  try {
+    await Property.find().updateMany({ $set: { manager: "Sary Elmelegy" } });
+    res.status(200).json({ message: "All properties are updated" });
+  } catch (error) {
+    res.status(400).json(error);
+  }
+};
+
 export const getAllProperties = async (req, res) => {
   try {
     const properties = await Property.find();

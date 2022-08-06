@@ -5,6 +5,10 @@ const PropertSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    manager: {
+      type: String,
+      default: "",
+    },
     price: {
       type: Number,
       required: true,
